@@ -1,0 +1,17 @@
+.header {
+   background-color: antiquewhite;
+}
+
+.nav {
+   display: flex;
+   gap: 20px;
+   margin-left: 2rem;
+   margin-bottom: 50px;
+   padding: 15px 0;
+
+}
+.nav a{
+   text-transform: uppercase;
+   font-weight: bold;
+   text-decoration: none;
+}
