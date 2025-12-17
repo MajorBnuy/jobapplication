@@ -18,14 +18,11 @@ export default function newApplication() {
         event.preventDefault();
 
         const data = {
-          status: "init",
           company,
           applicationDate,
           homepage,
           motivationLetter,
         };
-
-        console.log("data", data);
 
         try {
           setIsSubmitting(true);

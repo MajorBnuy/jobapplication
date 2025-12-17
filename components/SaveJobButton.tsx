@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export function EditJobButton({ id }: { id: string }) {
+export default function SaveJobButton({ id }: { id: string }) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<Error | null>(null);
@@ -33,7 +33,7 @@ export function EditJobButton({ id }: { id: string }) {
   return (
     <div>
       <button type="button" onClick={handleClick} disabled={isSubmitting}>
-        {isSubmitting ? "Editing..." : "Edit"}
+        {isSubmitting ? "Saving..." : "Save"}
       </button>
       {error && <div>Error: {error.message}</div>}
     </div>

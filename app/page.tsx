@@ -1,19 +1,32 @@
 import styles from "./page.module.css";
-import "./global.css"
+import "./global.css";
 import Link from "next/link";
-import { connect } from "@/lib/mongoose";
 import { DeleteJobButton } from "../components/DeleteJobButton";
-import { JobApplicationModel } from "../models/JobApplicationSchema";
-
+import { createServerClient } from "@/lib/supabase/createServerClient";
 
 function Timestamp({ date }: { date: Date }) {
   return date.toLocaleDateString();
 }
 
 export default async function JobApplicationList() {
+  const supabase = await createServerClient();
 
-  await connect();
-  const applications = await JobApplicationModel.find({});
+  const { data: applications, error } = await supabase
+    .from("job_application")
+    .select("*, companies(name)");
+
+  if (error) {
+    return <div>Some error happend</div>;
+  }
+  if (!applications?.length) {
+    return (
+      <div>
+        No applications yet
+        <Link href="/job-application/new">Add your first application</Link>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.listMain}>
       <table className={styles.mainTable}>
@@ -29,40 +42,46 @@ export default async function JobApplicationList() {
         </thead>
 
         {applications.map(
-          ({
-            _id,
-            company,
-            homepage,
-            status,
-            applicationDate,
-            motivationLetter,
-          },
-        index) => (
-              <tbody key={_id.toString()}>
-                <tr className={styles.dataTable}>
-                  <th>{index +1}</th>
-                  <th >
-                    <a href={homepage} target="_blank">
-                      {company}
-                    </a>
-                  </th>
-                  <th>
-                    {applicationDate && <Timestamp date={applicationDate} />}
-                  </th>
-                  <th>{status}</th>
-                  <th>Motivation Letter {motivationLetter ? "written" : "missing"}.</th>
-                  <th>
-                    <Link href={`/job-application/${_id}`}>EDIT</Link>
-                  </th>
-                </tr>
-                <tr>
-                  <th colSpan={6} className={styles.buttonTab}>
-                    <span className={styles.buttonGroup}>
-                      <DeleteJobButton id={_id.toString()} />
-                    </span>
-                  </th>
-                </tr>
-              </tbody>
+          (
+            {
+              id,
+              homepage,
+              status,
+              application_date,
+              motivation_letter,
+              companies: {
+                name
+              }
+            },
+            index
+          ) => (
+            <tbody key={id}>
+              <tr className={styles.dataTable}>
+                <th>{index + 1}</th>
+                <th>
+                  <a href={homepage} target="_blank">
+                    {name}
+                  </a>
+                </th>
+                <th>
+                  {application_date && <Timestamp date={new Date(application_date)} />}
+                </th>
+                <th>{status}</th>
+                <th>
+                  Motivation Letter {motivation_letter ? "written" : "missing"}.
+                </th>
+                <th>
+                  <Link href={`/job-application/${id}`}>EDIT</Link>
+                </th>
+              </tr>
+              <tr>
+                <th colSpan={6} className={styles.buttonTab}>
+                  <span className={styles.buttonGroup}>
+                    <DeleteJobButton id={id} />
+                  </span>
+                </th>
+              </tr>
+            </tbody>
           )
         )}
       </table>
