@@ -1,5 +1,3 @@
-import { connect } from "@/lib/mongoose";
-import { JobApplicationModel } from "../../models/JobApplicationSchema";
 import { createServerClient } from "@/lib/supabase/createServerClient";
 
 export async function GET(request: Request) {
