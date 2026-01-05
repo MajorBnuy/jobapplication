@@ -7,7 +7,7 @@ export async function GET(request: Request) {
   const supabase = await createServerClient();
   const { data: JobApplication, error } = await supabase
     .from("job_application")
-    .select("*,companies(name)")
+    .select("*")
     .eq("id", id)
     .single();
   if (error) {
@@ -19,29 +19,14 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   const json = await request.json();
   const supabase = await createServerClient();
-  const { data: company, error: companyError } = await supabase
-    .from("companies")
-    .upsert(
-      {
-        name: json.company,
-        industry: "TODO",
-      },
-      {
-        onConflict: "name",
-      }
-    )
-    .select()
-    .single();
 
-  if (companyError) {
-    return Response.json({ error: companyError.message });
-  }
   const { data: JobApplication, error } = await supabase
     .from("job_application")
     .insert({
-      company_id: company.id,
+      company_id: json.company,
       homepage: json.homepage,
       motivation_letter: json.motivationLetter,
+      application_date: json.applicationDate
     })
     .select()
     .single();
@@ -71,28 +56,15 @@ export async function DELETE(request: Request) {
 export async function PATCH(request: Request) {
 const json = await request.json();
   const supabase = await createServerClient();
-  const { data: company, error: companyError } = await supabase
-    .from("companies")
-    .upsert(
-      {
-        name: json.company,
-        industry: "TODO",
-      },{
-        onConflict: "name"
-      }
-    )
-    .select()
-    .single();
-
-  if (companyError) {
-    return Response.json({ error: companyError.message });
-  }
+  
   const { data: JobApplication, error } = await supabase
     .from("job_application")
     .update({
-      company_id: company.id,
+      company_id: json.company,
       homepage: json.homepage,
       motivation_letter: json.motivationLetter,
+      application_date: json.applicationDate,
+      status: json.status
     })
     .eq("id", json.id)
     .select()

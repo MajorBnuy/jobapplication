@@ -2,7 +2,6 @@
 import styles from "./page.module.css";
 import { useRouter } from "next/navigation";
 import { useState, use, useEffect } from "react";
-import SaveJobButton from "../../../components/SaveJobButton"
 
 export default function editApplication(props: {
   params: Promise<{ id: string }>;
@@ -10,7 +9,8 @@ export default function editApplication(props: {
   const [company, setCompany] = useState("");
   const [applicationDate, setApplicationDate] = useState("");
   const [homepage, setHomepage] = useState("");
-  const [id, setId] = useState("")
+  const [status, setStatus] = useState("");
+  const [id, setId] = useState("");
   const [motivationLetter, setMotivationLetter] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<Error | null>(null);
@@ -29,8 +29,9 @@ export default function editApplication(props: {
       if (!response.ok) throw new Error("Fehler beim Laden");
       const json = await response.json();
 
-      setCompany(json.companies?.name || "");
+      setCompany(json.company_id || "");
       setHomepage(json.homepage || "");
+      setStatus(json.status || "");
       setMotivationLetter(json.motivation_letter || "");
       setApplicationDate(json.application_date || "");
     } catch (err) {
@@ -41,7 +42,7 @@ export default function editApplication(props: {
   }
   useEffect(() => {
     const id = params.id;
-    setId(id)
+    setId(id);
     getFetch(id);
   }, [params.id]);
 
@@ -55,6 +56,7 @@ export default function editApplication(props: {
           id,
           company,
           applicationDate,
+          status,
           homepage,
           motivationLetter,
         };
@@ -71,7 +73,7 @@ export default function editApplication(props: {
           const json = await response.json();
           console.log("json", json);
 
-          router.refresh()
+          router.refresh();
           setIsSubmitting(false);
         } catch (err) {
           setError(err as unknown as Error);
@@ -104,6 +106,21 @@ export default function editApplication(props: {
               disabled={isSubmitting}
             />
           </label>
+        </div>
+        <div>
+          <div>Status</div>
+          <select
+            name="status"
+            value={status}
+            onChange={(event) => setStatus(event.target.value)}
+            disabled={isSubmitting}
+          >
+            <option value="init">init</option>
+            <option value="applied">applied</option>
+            <option value="awaiting Answer">awaiting Answer</option>
+            <option value="interview Offered">interview Offered</option>
+            <option value="declined">declined</option>
+          </select>
         </div>
         <div>
           <label>

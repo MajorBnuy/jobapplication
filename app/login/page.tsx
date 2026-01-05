@@ -1,11 +1,13 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const [info, setInfo] = useState<{
     email?: string;
     password?: string;
   }>({});
+  const router = useRouter()
 
   return (
     <div>
@@ -18,6 +20,7 @@ export default function LoginPage() {
          .then((res) => res.json())
          .then(()=> {
             console.log('login success');
+            router.push('/')
          })
       }}>
         <label>

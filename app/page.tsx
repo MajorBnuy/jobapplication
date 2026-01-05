@@ -5,7 +5,7 @@ import { DeleteJobButton } from "../components/DeleteJobButton";
 import { createServerClient } from "@/lib/supabase/createServerClient";
 
 function Timestamp({ date }: { date: Date }) {
-  return date.toLocaleDateString();
+  return date.toLocaleDateString("de-DE");
 }
 
 export default async function JobApplicationList() {
@@ -13,7 +13,7 @@ export default async function JobApplicationList() {
 
   const { data: applications, error } = await supabase
     .from("job_application")
-    .select("*, companies(name)");
+    .select("*");
 
   if (error) {
     return <div>Some error happend</div>;
@@ -49,9 +49,7 @@ export default async function JobApplicationList() {
               status,
               application_date,
               motivation_letter,
-              companies: {
-                name
-              }
+              company_id
             },
             index
           ) => (
@@ -60,7 +58,7 @@ export default async function JobApplicationList() {
                 <th>{index + 1}</th>
                 <th>
                   <a href={homepage} target="_blank">
-                    {name}
+                    {company_id}
                   </a>
                 </th>
                 <th>
