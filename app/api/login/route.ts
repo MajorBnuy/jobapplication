@@ -14,7 +14,7 @@ export async function POST(request:Request) {
       console.log('user login', data);
       return Response.json({message: "Login success"}, {status:201})
    } catch (error) {
-      console.error('An error occured while registing', error)
+      console.error('An error occured while login', error)
       return Response.json({error: "login error"}, {status: 500})
    }
 }

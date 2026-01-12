@@ -1,28 +1,31 @@
-"use client";
+"use client"
+import style from "./login.module.css"
+import "../global.css"
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const [info, setInfo] = useState<{
     email?: string;
     password?: string;
   }>({});
-  const router = useRouter()
 
   return (
-    <div>
-      <form onSubmit={(e) => {
+    <div className={style.loginmain}>
+      <form className={style.loginform} onSubmit={async (e) => {
          e.preventDefault()
-         fetch('/api/login', {
+         const res = await fetch('/api/login', {
             method: 'POST',
-            body: JSON.stringify(info)
+            body: JSON.stringify(info),
+            headers: { 'Content-Type': 'application/json' }
          })
-         .then((res) => res.json())
-         .then(()=> {
-            console.log('login success');
-            router.push('/')
-         })
+         if (res.ok){
+          const data = await res.json()
+          window.location.href = "/";
+         } else {
+          alert("Login fehlgeschlagen")
+         }
       }}>
+        <h2 className={style.hlogin}>Login</h2>
         <label>
           <div>E-Mail</div>
           <input type="email" onChange={(e) => 
@@ -42,7 +45,7 @@ export default function LoginPage() {
           }/>
         </label>
         <div>
-         <button type="submit">Login</button>
+         <button className={style.loginbutton} type="submit">Login</button>
         </div>
       </form>
     </div>

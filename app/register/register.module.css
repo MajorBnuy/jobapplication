@@ -1,0 +1,16 @@
+.registermain {
+   width: 100vw;
+   display: flex;
+
+}
+.registerform{
+   margin: auto;
+   border: solid 1px black;
+   padding: 2rem;
+}
+.registerbutton{
+   margin-top: 1em;
+}
+.hregister{
+   margin-bottom: 0.5em;
+}

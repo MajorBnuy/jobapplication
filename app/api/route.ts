@@ -1,4 +1,34 @@
 import { createServerClient } from "@/lib/supabase/createServerClient";
+import fs from "fs"
+import path from "path"
+
+function getMarkdownPath(id: string) {
+  return path.join(process.cwd(),'job_applications_md', `${id}.md`)
+}
+
+function saveJobApplicationAsMarkdown(data:any) {
+  const markdown = `
+  # Job Application
+
+  **ID** ${data._id}
+  **Company** ${data.company}
+  **Homepage** ${data.homepage}
+  **Date** ${data.applicationDate}
+
+  ## Motivation Letter
+  ${data.motivationLetter}
+  `
+  const dir = path.join(process.cwd(), 'job_applications_md')
+  fs.mkdirSync(dir, {recursive: true})
+  fs.writeFileSync(getMarkdownPath(data._id), markdown, 'utf8')
+}
+
+function deteleJobApplicationMarkdown(id:string) {
+  const filePath = getMarkdownPath(id)
+  if (fs.existsSync(filePath)) {
+    fs.unlinkSync(filePath)
+  }
+}
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -34,6 +64,15 @@ export async function POST(request: Request) {
   if (error) {
     return Response.json({ error: error.message });
   }
+  if( JobApplication && JobApplication.id) {
+    saveJobApplicationAsMarkdown({
+      _id: JobApplication.id,
+      company: JobApplication.company_id,
+      homepage: JobApplication.homepage,
+      applicationDate: JobApplication.application_date,
+      motivationLetter: JobApplication.motivation_letter
+    })
+  }
   return Response.json(JobApplication);
 }
 
@@ -48,6 +87,8 @@ export async function DELETE(request: Request) {
   if (error) {
     return Response.json({ error: error.message });
   }
+  deteleJobApplicationMarkdown(json.id)
+
   return Response.json({
     ok: true,
   });
@@ -72,6 +113,15 @@ const json = await request.json();
 
   if (error) {
     return Response.json({ error: error.message });
+  }
+    if( JobApplication && JobApplication.id) {
+    saveJobApplicationAsMarkdown({
+      _id: JobApplication.id,
+      company: JobApplication.company_id,
+      homepage: JobApplication.homepage,
+      applicationDate: JobApplication.application_date,
+      motivationLetter: JobApplication.motivation_letter
+    })
   }
   return Response.json(JobApplication);
 }

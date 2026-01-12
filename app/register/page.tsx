@@ -1,6 +1,7 @@
 "use client";
-import Link from "next/link";
 import { useState } from "react";
+import style from "./register.module.css";
+import "../global.css"
 
 export default function RegisterPage() {
   const [info, setInfo] = useState<{
@@ -8,34 +9,38 @@ export default function RegisterPage() {
     password?: string;
   }>({});
   const [confirmPassword, setConfirmPassword] = useState<string | null>();
-  const [status, setStatus] = useState<'init' | 'loading' | 'success' | 'error'>('init')
-  if(status === "success"){
-   return (
-      <Link href="/login">Login</Link>
-   )
+  const [status, setStatus] = useState<
+    "init" | "loading" | "success" | "error"
+  >("init");
+  if (status === "success") {
+    window.location.href = "/";
   }
-  if(status === "error"){
-   return <div>Something went wrong. </div>
+  if (status === "error") {
+    return <div>Something went wrong. </div>;
   }
 
   return (
-    <div>
-      <form onSubmit={(e) => {
-         setStatus('loading')
-         e.preventDefault()
-         fetch('/api/register', {
-            method: 'POST',
-            body: JSON.stringify(info)
-         })
-         .then((res) => res.json())
-         .then(() => {
-            console.log('registered');
-            setStatus('success')
-         })
-         .catch(() => {
-            setStatus('error')
-         })
-      }}>
+    <div className={style.registermain}>
+      <form
+        className={style.registerform}
+        onSubmit={(e) => {
+          setStatus("loading");
+          e.preventDefault();
+          fetch("/api/register", {
+            method: "POST",
+            body: JSON.stringify(info),
+          })
+            .then((res) => res.json())
+            .then(() => {
+              console.log("registered");
+              setStatus("success");
+            })
+            .catch(() => {
+              setStatus("error");
+            });
+        }}
+      >
+        <h2 className={style.hregister}>Register</h2>
         <label>
           <div>E-Mail</div>
           <input
@@ -72,9 +77,13 @@ export default function RegisterPage() {
         </label>
         <div>
           <button
+            className={style.registerbutton}
             type="submit"
             disabled={
-              !info.email || !info.password || info.password !== confirmPassword || status === 'loading'
+              !info.email ||
+              !info.password ||
+              info.password !== confirmPassword ||
+              status === "loading"
             }
           >
             Register

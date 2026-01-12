@@ -79,6 +79,7 @@ export default function editApplication(props: {
           setError(err as unknown as Error);
           setIsSubmitting(false);
         }
+            window.location.href = "/"
       }}
     >
       <div>
@@ -91,18 +92,6 @@ export default function editApplication(props: {
               name="company"
               required
               onChange={(event) => setCompany(event.target.value)}
-              disabled={isSubmitting}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            <div>Application Date</div>
-            <input
-              name="applicationDate"
-              value={applicationDate}
-              type="text"
-              onChange={(event) => setApplicationDate(event.target.value)}
               disabled={isSubmitting}
             />
           </label>

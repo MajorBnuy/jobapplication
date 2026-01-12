@@ -1,0 +1,16 @@
+.loginmain {
+   width: 100vw;
+   display: flex;
+
+}
+.hlogin{
+   margin-bottom: 0.5em;
+}
+.loginform{
+   margin: auto;
+   border: solid 1px black;
+   padding: 2rem;
+}
+.loginbutton{
+   margin-top: 1em;
+}
