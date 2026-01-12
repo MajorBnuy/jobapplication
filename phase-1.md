@@ -64,14 +64,12 @@ In order to ease the use of our application, we want to split the following feat
     - [X] Firma (Text)
     - [X] Homepage (URL)
     - [X] Motivationsschreiben (optional, Textarea)
-  - [ ] "Speichern"-Button (aktualisiert Bewerbung und leitet zurück auf Detailseite)
-  - [ ] "Löschen"-Button (entfernt Bewerbung und leitet zurück auf Home Page)
+  - [X] "Speichern"-Button (aktualisiert Bewerbung und leitet zurück auf Detailseite)
+  - [X] "Löschen"-Button (entfernt Bewerbung und leitet zurück auf Home Page)
 
 ## Nice to Have
 
-- [ ] Markdown Rich Text Editor für Motivationsschreiben (Formatierungen: Fett, Kursiv, Unterstrichen, Listen)
-- [ ] "Ich habe mich beworben"-Button (setzt Bewerbungsdatum auf aktuelles Datum, auf Home und Detailseite)
+- [X] Markdown Rich Text Editor für Motivationsschreiben (Formatierungen: Fett, Kursiv, Unterstrichen, Listen)
 - [ ] Suchfunktion auf Home Page (Filter nach Firmenname, Case-insensitive, Echtzeit)
 - [ ] Pagination auf Home Page (mehr als 10 Bewerbungen, Navigation zwischen Seiten)
 - [ ] Read-Only Modus für Detailseite (Umschaltbar, "Speichern"-Button ausgeblendet, Motivationsschreiben als gerendertes Markdown)
-- [ ] "Notizen" zu Bewerbung (Hinzufügen, Bearbeiten, Löschen von Notizen mit Zeitstempel, Listenformat auf Detailseite)
