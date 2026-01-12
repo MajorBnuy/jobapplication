@@ -1,3 +1,17 @@
-.formMain {
-   margin: 2rem;
+
+.idmain {
+   width: 100vw;
+   display: flex;
+   justify-content: center;
+}
+.hid{
+   margin-bottom: 0.5em;
+}
+.idform{
+   margin-top: 50px;
+   border: solid 1px black;
+   padding: 2rem;
+}
+.idbutton{
+   margin-top: 1em;
 }

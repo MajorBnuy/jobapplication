@@ -55,8 +55,8 @@ export default async function JobApplicationList() {
           ) => (
             <tbody key={id}>
               <tr className={styles.dataTable}>
-                <th>{index + 1}</th>
-                <th>
+                <th className={styles.tableId}><span>{index + 1}</span></th>
+                <th className={styles.tableHomepage}>
                   <a href={homepage} target="_blank">
                     {company_id}
                   </a>
@@ -69,8 +69,10 @@ export default async function JobApplicationList() {
                   Motivation Letter {motivation_letter ? "written" : "missing"}.
                 </th>
                 <th>
-                  <Link href={`/job-application/${id}`}>EDIT</Link>
-                  <DeleteJobButton id={id} />
+                  <div className={styles.tableEdit}>
+                    <Link href={`/job-application/${id}`}>EDIT</Link>
+                    <DeleteJobButton id={id} />
+                  </div>
                 </th>
               </tr>
             </tbody>
