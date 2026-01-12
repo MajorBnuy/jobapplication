@@ -1,5 +1,5 @@
 "use client"
-import styles from "./logoutButton.module.css";
+// import styles from "./logoutButton.module.css";
 
 export default function LogoutButton({userId} : {userId: string}) {
 
@@ -16,7 +16,7 @@ export default function LogoutButton({userId} : {userId: string}) {
   };
   return (
     <div>
-      <button className={styles.button} type="button" onClick={handleClick}>
+      <button type="button" onClick={handleClick}>
         Logout
       </button>
     </div>

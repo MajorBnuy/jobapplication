@@ -1,5 +1,6 @@
 .header {
-   background-color: antiquewhite;
+   background-color: lightgray;
+   height: 3.5rem;
 }
 
 .nav {
@@ -13,13 +14,26 @@
    display: flex;
    gap: 1rem;
 }
-.nav a {
+.nav a,
+.nav span,
+.nav button {
    text-transform: uppercase;
    font-weight: bold;
    text-decoration: none;
 }
+.nav a:hover,
+.nav button:hover{
+   color: white
+}
+
 .nav span {
    text-transform: uppercase;
    font-weight: bold;
    text-decoration: none;
+}
+
+.nav button {
+   border: none;
+   background: none;
+   padding: 0;
 }

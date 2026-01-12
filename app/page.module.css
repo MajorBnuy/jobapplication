@@ -1,5 +1,8 @@
 .listMain {
    margin: 2rem;
+   width: 100vw;
+   display: flex;
+   justify-content: center;
 }
 .mainTable {
    border: solid 3 black;

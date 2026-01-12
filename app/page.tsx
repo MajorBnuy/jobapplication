@@ -70,13 +70,7 @@ export default async function JobApplicationList() {
                 </th>
                 <th>
                   <Link href={`/job-application/${id}`}>EDIT</Link>
-                </th>
-              </tr>
-              <tr>
-                <th colSpan={6} className={styles.buttonTab}>
-                  <span className={styles.buttonGroup}>
-                    <DeleteJobButton id={id} />
-                  </span>
+                  <DeleteJobButton id={id} />
                 </th>
               </tr>
             </tbody>

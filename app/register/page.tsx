@@ -16,7 +16,7 @@ export default function RegisterPage() {
     window.location.href = "/";
   }
   if (status === "error") {
-    return <div>Something went wrong. </div>;
+    return alert("Register fehlgeschlagen")
   }
 
   return (
