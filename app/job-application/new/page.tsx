@@ -33,7 +33,7 @@ export default function newApplication() {
             });
             const json = await response.json();
             console.log("json", json);
-            router.refresh()
+            router.push('/')
             setIsSubmitting(false);
           } catch (err) {
             setError(err as unknown as Error);

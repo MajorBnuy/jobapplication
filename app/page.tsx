@@ -13,7 +13,8 @@ export default async function JobApplicationList() {
 
   const { data: applications, error } = await supabase
     .from("job_application")
-    .select("*");
+    .select("*")
+    .order("id", {ascending: true})
 
   if (error) {
     return <div>Some error happend</div>;

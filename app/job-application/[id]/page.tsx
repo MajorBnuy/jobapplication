@@ -72,13 +72,12 @@ export default function editApplication(props: {
             });
             const json = await response.json();
             console.log("json", json);
-            router.refresh();
+            router.push('/')
             setIsSubmitting(false);
           } catch (err) {
             setError(err as unknown as Error);
             setIsSubmitting(false);
           }
-              window.location.href = "/"
         }}
       >
         <div>

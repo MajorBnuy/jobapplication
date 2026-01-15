@@ -2,12 +2,14 @@
 import style from "./login.module.css"
 import "../global.css"
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const [info, setInfo] = useState<{
     email?: string;
     password?: string;
   }>({});
+  const router = useRouter()
 
   return (
     <div className={style.loginmain}>
@@ -20,7 +22,7 @@ export default function LoginPage() {
          })
          if (res.ok){
           const data = await res.json()
-          window.location.href = "/";
+          router.push('/')
          } else {
           alert("Login fehlgeschlagen")
          }
