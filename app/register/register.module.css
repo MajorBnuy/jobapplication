@@ -1,10 +1,11 @@
 .registermain {
    width: 100vw;
    display: flex;
+   justify-content: center;
 
 }
 .registerform{
-   margin: auto;
+   margin-top: 50px;
    border: solid 1px black;
    padding: 2rem;
 }

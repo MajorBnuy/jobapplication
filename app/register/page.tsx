@@ -2,8 +2,10 @@
 import { useState } from "react";
 import style from "./register.module.css";
 import "../global.css"
+import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
+  const router = useRouter()
   const [info, setInfo] = useState<{
     email?: string;
     password?: string;
@@ -13,10 +15,10 @@ export default function RegisterPage() {
     "init" | "loading" | "success" | "error"
   >("init");
   if (status === "success") {
-    window.location.href = "/";
+    router.push('/login')
   }
   if (status === "error") {
-    return <div>Something went wrong. </div>;
+    return alert("Register fehlgeschlagen")
   }
 
   return (

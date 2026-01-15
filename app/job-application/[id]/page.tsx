@@ -47,98 +47,98 @@ export default function editApplication(props: {
   }, [params.id]);
 
   return (
-    <form
-      className={styles.formMain}
-      onSubmit={async (event) => {
-        event.preventDefault();
+    
 
-        const data = {
-          id,
-          company,
-          applicationDate,
-          status,
-          homepage,
-          motivationLetter,
-        };
-
-        try {
-          setIsSubmitting(true);
-          setError(null);
-
-          const response = await fetch("/api", {
-            method: "PATCH",
-            headers: { accept: "application/json" },
-            body: JSON.stringify(data),
-          });
-          const json = await response.json();
-          console.log("json", json);
-
-          router.refresh();
-          setIsSubmitting(false);
-        } catch (err) {
-          setError(err as unknown as Error);
-          setIsSubmitting(false);
-        }
-            window.location.href = "/"
-      }}
-    >
-      <div>
+    <div className={styles.idmain}>
+      <form
+        className={styles.idform}
+        onSubmit={async (event) => {
+          event.preventDefault();
+          const data = {
+            id,
+            company,
+            applicationDate,
+            status,
+            homepage,
+            motivationLetter,
+          };
+          try {
+            setIsSubmitting(true);
+            setError(null);
+            const response = await fetch("/api", {
+              method: "PATCH",
+              headers: { accept: "application/json" },
+              body: JSON.stringify(data),
+            });
+            const json = await response.json();
+            console.log("json", json);
+            router.push('/')
+            setIsSubmitting(false);
+          } catch (err) {
+            setError(err as unknown as Error);
+            setIsSubmitting(false);
+          }
+        }}
+      >
         <div>
-          <label>
-            <div>Company</div>
-            <input
-              type="text"
-              value={company}
-              name="company"
-              required
-              onChange={(event) => setCompany(event.target.value)}
+        <h2 className={styles.hid}>Edit</h2>
+          <div>
+            <label>
+              <div>Company</div>
+              <input
+                type="text"
+                value={company}
+                name="company"
+                required
+                onChange={(event) => setCompany(event.target.value)}
+                disabled={isSubmitting}
+              />
+            </label>
+          </div>
+          <div>
+            <div>Status</div>
+            <select
+              name="status"
+              value={status}
+              onChange={(event) => setStatus(event.target.value)}
               disabled={isSubmitting}
-            />
-          </label>
+            >
+              <option value="init">init</option>
+              <option value="applied">applied</option>
+              <option value="awaiting Answer">awaiting Answer</option>
+              <option value="interview Offered">interview Offered</option>
+              <option value="declined">declined</option>
+            </select>
+          </div>
+          <div>
+            <label>
+              <div>Homepage</div>
+              <input
+                name="homepage"
+                value={homepage}
+                type="url"
+                required
+                onChange={(event) => setHomepage(event.target.value)}
+                disabled={isSubmitting}
+              />
+            </label>
+          </div>
+          <div>
+            <label>
+              <div>Motivation Letter</div>
+              <textarea
+                name="motivationLetter"
+                value={motivationLetter}
+                onChange={(event) => setMotivationLetter(event.target.value)}
+                disabled={isSubmitting}
+              />
+            </label>
+          </div>
         </div>
         <div>
-          <div>Status</div>
-          <select
-            name="status"
-            value={status}
-            onChange={(event) => setStatus(event.target.value)}
-            disabled={isSubmitting}
-          >
-            <option value="init">init</option>
-            <option value="applied">applied</option>
-            <option value="awaiting Answer">awaiting Answer</option>
-            <option value="interview Offered">interview Offered</option>
-            <option value="declined">declined</option>
-          </select>
+          <button className={styles.idbutton} type="submit">Yoink</button>
         </div>
-        <div>
-          <label>
-            <div>Homepage</div>
-            <input
-              name="homepage"
-              value={homepage}
-              type="url"
-              required
-              onChange={(event) => setHomepage(event.target.value)}
-              disabled={isSubmitting}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            <div>Motivation Letter</div>
-            <textarea
-              name="motivationLetter"
-              value={motivationLetter}
-              onChange={(event) => setMotivationLetter(event.target.value)}
-              disabled={isSubmitting}
-            />
-          </label>
-        </div>
-      </div>
-      <div>
-        <button type="submit">Yoink</button>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 }

@@ -1,3 +1,16 @@
-.formMain {
-   margin: 2rem;
+.newmain {
+   width: 100vw;
+   display: flex;
+   justify-content: center;
+}
+.hnew{
+   margin-bottom: 0.5em;
+}
+.newform{
+   margin-top: 50px;
+   border: solid 1px black;
+   padding: 2rem;
+}
+.newbutton{
+   margin-top: 1em;
 }

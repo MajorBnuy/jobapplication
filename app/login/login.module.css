@@ -1,13 +1,14 @@
 .loginmain {
    width: 100vw;
    display: flex;
+   justify-content: center;
 
 }
 .hlogin{
    margin-bottom: 0.5em;
 }
 .loginform{
-   margin: auto;
+   margin-top: 50px;
    border: solid 1px black;
    padding: 2rem;
 }

@@ -13,7 +13,8 @@ export default async function JobApplicationList() {
 
   const { data: applications, error } = await supabase
     .from("job_application")
-    .select("*");
+    .select("*")
+    .order("id", {ascending: true})
 
   if (error) {
     return <div>Some error happend</div>;
@@ -55,8 +56,8 @@ export default async function JobApplicationList() {
           ) => (
             <tbody key={id}>
               <tr className={styles.dataTable}>
-                <th>{index + 1}</th>
-                <th>
+                <th className={styles.tableId}><span>{index + 1}</span></th>
+                <th className={styles.tableHomepage}>
                   <a href={homepage} target="_blank">
                     {company_id}
                   </a>
@@ -69,14 +70,10 @@ export default async function JobApplicationList() {
                   Motivation Letter {motivation_letter ? "written" : "missing"}.
                 </th>
                 <th>
-                  <Link href={`/job-application/${id}`}>EDIT</Link>
-                </th>
-              </tr>
-              <tr>
-                <th colSpan={6} className={styles.buttonTab}>
-                  <span className={styles.buttonGroup}>
+                  <div className={styles.tableEdit}>
+                    <Link href={`/job-application/${id}`}>EDIT</Link>
                     <DeleteJobButton id={id} />
-                  </span>
+                  </div>
                 </th>
               </tr>
             </tbody>
